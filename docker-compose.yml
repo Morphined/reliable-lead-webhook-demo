@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: reliable
+      POSTGRES_USER: reliable
+      POSTGRES_PASSWORD: reliable
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U reliable -d reliable"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    volumes:
+      - reliable_pgdata:/var/lib/postgresql/data
+
+  mock-api:
+    build: .
+    command: ["uvicorn", "mock_api.main:app", "--host", "0.0.0.0", "--port", "8090"]
+    ports:
+      - "8090:8090"
+
+  api:
+    build: .
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+      mock-api:
+        condition: service_started
+    ports:
+      - "8000:8000"
+
+volumes:
+  reliable_pgdata:
