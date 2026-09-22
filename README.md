@@ -1,3 +1,5 @@
+[![Tests](https://github.com/Morphined/reliable-lead-webhook-demo/actions/workflows/tests.yml/badge.svg)](https://github.com/Morphined/reliable-lead-webhook-demo/actions/workflows/tests.yml)
+
 # Reliable Lead Webhook Demo
 
 A small portfolio project that demonstrates the part of automation work clients often pay for **after the happy path is already working**: preventing duplicate side effects, recovering from transient failures, preserving an audit trail, and making terminal failures visible.
@@ -38,7 +40,7 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for the design rationale.
 
 ```bash
 python -m venv .venv
-# Windows: .venv\\Scripts\\activate
+# Windows: .venv\Scripts\activate
 # Linux/macOS: source .venv/bin/activate
 pip install -r requirements.txt
 pytest
